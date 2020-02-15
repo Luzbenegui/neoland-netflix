@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <script>
+        function getContact () {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        
+        const urlApi = "http://localhost:5000/api/users/login";
+        const opts = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify ({email: email, password: password})
+        }
+        fetch(urlApi, opts).then(function(response) {
+            console.log("POST SUCCESS");
+            return response.json();
+        })
+        .then(function(data) {
+            
+            
+            window.location.href = "http://localhost:4000/index";
+
+        })
+        .catch(function(err) {
+            alert("Usuario no encontrado");
+
+        });
+    }
+    </script>
+
+</head>
+<body>
+    
+<h1>Accede</h1>
+
+<form>
+    <label for="email">Tu email</label><br>
+    <input type="text" id="email" name="email"><br>
+    <label for="password">Tu password</label><br>
+    <input type="password" id="password" name="password"><br>
+    <button type="button" onclick="getContact()">Acceder</button>
+
+
+  </form>
+
+  <label id="message" for=""></label>
+
+</body>
+</html>

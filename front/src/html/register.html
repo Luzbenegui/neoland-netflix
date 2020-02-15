@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>registrer</title>
+    <script>
+      function postContact () {
+      const urlApi = "http://localhost:5000/api/users/register";
+      const newContact = {
+            email: document.getElementById("email").value,
+            name: document.getElementById("name").value,
+            age: document.getElementById("age").value,
+            password: document.getElementById("password").value
+
+            };
+      
+      const opts = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify (newContact)
+      }
+      fetch(urlApi, opts).then(function(response) {
+          console.log("POST SUCCESS");
+          return response.json();
+      })
+      .then(function(data) {
+        alert("Contacto añadido con id: " + data.contact.id);
+          
+        window.location.href = "http://localhost:4000/index";
+
+      })
+      .catch(function(err) {
+          alert("Error de login");
+
+      });
+  }
+  </script>
+
+</head>
+<body>
+    
+<h1>Regístrate</h1>
+
+<form>
+    <label for="name">Tu nombre</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <label for="email">Tu email</label><br>
+    <input type="text" id="email" name="email" required><br>
+    <label for="age">Tu edad</label><br>
+    <input type="number" id="age" name="age" required><br>
+    <label for="password">Tu password</label><br>
+    <input type="password" id="password" name="password" required><br>
+    <button type="button" onclick="postContact()">Acceder</button>
+  </form>
+
+</body>
+</html>
